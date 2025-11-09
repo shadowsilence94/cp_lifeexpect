@@ -1,2 +1,39 @@
-*.zip
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Backups
+*.backup
+*.bak
+
+# Streamlit
+.streamlit/
+
+# Data (keep original data files but ignore temp)
+*.tmp
+*.cache
