@@ -132,7 +132,7 @@ try:
         
         # Timeline visualization
         st.subheader("📈 Global Life Expectancy Trend Over Time")
-        yearly_avg = world_bank.groupby('year')['life_expectancy'].mean().reset_index()
+        yearly_avg = world_bank[world_bank['life_expectancy'].notna()].groupby('year')['life_expectancy'].mean().reset_index()
         
         fig = go.Figure()
         fig.add_trace(go.Scatter(
@@ -176,7 +176,10 @@ try:
                 st.subheader(f"📊 Forecast for {selected_country}")
                 
                 # Combine historical and forecast
-                recent_historical = historical[historical['year'] >= 2015][['year', 'life_expectancy']]
+                recent_historical = historical[
+                    (historical['year'] >= 2015) & 
+                    (historical['life_expectancy'].notna())
+                ][['year', 'life_expectancy']]
                 forecast_df = country_data[['year', 'predicted_life_expectancy']].copy()
                 forecast_df.columns = ['year', 'life_expectancy']
                 
@@ -683,7 +686,7 @@ try:
         st.subheader("🗺️ Historical Trends")
         
         # Historical trend by year
-        yearly_data = world_bank.groupby('year').agg({
+        yearly_data = world_bank[world_bank['life_expectancy'].notna()].groupby('year').agg({
             'life_expectancy': ['mean', 'min', 'max']
         }).reset_index()
         yearly_data.columns = ['year', 'mean', 'min', 'max']
